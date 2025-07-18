@@ -4,10 +4,74 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dev CV Generator</title>
-  <link rel="stylesheet" href="../src/styles/style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div id="app"></div>
+<body class="bg-gray-100 text-gray-900">
+  <div class="container mx-auto p-6 flex flex-col md:flex-row gap-6">
+    
+    <!-- Formulaire -->
+    <section id="cv-form-section" class="w-full md:w-1/2 bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-bold mb-4">📝 Informations du CV</h2>
+      <form id="cv-form" class="space-y-4">
+        <!-- Infos personnelles -->
+        <div>
+          <label class="block font-semibold">Nom :</label>
+          <input type="text" id="name" class="w-full border p-2 rounded" required />
+        </div>
+        <div>
+          <label class="block font-semibold">Prénom :</label>
+          <input type="text" id="first-name" class="w-full border p-2 rounded" required />
+        </div>
+        <div>
+          <label class="block font-semibold">Email :</label>
+          <input type="email" id="email" class="w-full border p-2 rounded" required />
+        </div>
+        <div>
+          <label class="block font-semibold">LinkedIn :</label>
+          <input type="url" id="linkedin" class="w-full border p-2 rounded" />
+        </div>
+        <div>
+          <label class="block font-semibold">GitHub :</label>
+          <input type="url" id="github" class="w-full border p-2 rounded" />
+        </div>
+
+        <!-- Compétences -->
+        <div>
+          <label class="block font-semibold">Compétences (séparées par des virgules) :</label>
+          <input type="text" id="skills" class="w-full border p-2 rounded" />
+        </div>
+          <div>
+            <label class="block font-semibold">Couleur principale :</label>
+              <select id="theme-color" class="w-full border p-2 rounded">
+              <option value="blue">Bleu</option>
+              <option value="red">Rouge</option>
+              <option value="green">Vert</option>
+              <option value="purple">Violet</option>
+              <option value="black">Noir</option>
+            </select>
+          </div>
+
+        <!-- Bouton -->
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Générer le CV
+        </button>
+      </form>
+    </section>
+
+    <!-- Aperçu -->
+    <section id="cv-preview" class="w-full md:w-1/2 bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-bold mb-4">👀 Aperçu du CV</h2>
+      <div id="cv-output" class="space-y-2 text-sm text-gray-700">
+        <p><strong>Nom :</strong> <span id="preview-name">-</span></p>
+        <p><strong>Prénom :</strong> <span id="preview-first-name">-</span></p>
+        <p><strong>Email :</strong> <span id="preview-email">-</span></p>
+        <p><strong>LinkedIn :</strong> <span id="preview-linkedin">-</span></p>
+        <p><strong>GitHub :</strong> <span id="preview-github">-</span></p>
+        <p><strong>Compétences :</strong> <span id="preview-skills">-</span></p>
+      </div>
+    </section>
+
+  </div>
 
   <script src="../src/main.js" type="module"></script>
 </body>
