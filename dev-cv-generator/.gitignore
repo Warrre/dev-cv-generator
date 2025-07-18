@@ -1,0 +1,16 @@
+# Dossiers courants à ignorer
+node_modules/
+dist/
+build/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Variables d'environnement (si jamais tu ajoutes un .env plus tard)
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
