@@ -7,13 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
+
   <div class="container mx-auto p-6 flex flex-col md:flex-row gap-6">
-    
-    <!-- Formulaire -->
+
+    <!-- Section Formulaire -->
     <section id="cv-form-section" class="w-full md:w-1/2 bg-white p-6 rounded shadow">
       <h2 class="text-xl font-bold mb-4">📝 Informations du CV</h2>
+      
       <form id="cv-form" class="space-y-4">
-        <!-- Infos personnelles -->
+        <!-- Informations personnelles -->
         <div>
           <label class="block font-semibold">Nom :</label>
           <input type="text" id="name" class="w-full border p-2 rounded" required />
@@ -40,26 +42,30 @@
           <label class="block font-semibold">Compétences (séparées par des virgules) :</label>
           <input type="text" id="skills" class="w-full border p-2 rounded" />
         </div>
-          <div>
-            <label class="block font-semibold">Couleur principale :</label>
-              <select id="theme-color" class="w-full border p-2 rounded">
-              <option value="blue">Bleu</option>
-              <option value="red">Rouge</option>
-              <option value="green">Vert</option>
-              <option value="purple">Violet</option>
-              <option value="black">Noir</option>
-            </select>
-          </div>
 
-        <!-- Bouton -->
+        <!-- Sélecteur de thème -->
+        <div>
+          <label class="block font-semibold">Couleur principale :</label>
+          <select id="theme-color" class="w-full border p-2 rounded">
+            <option value="blue">Bleu</option>
+            <option value="red">Rouge</option>
+            <option value="green">Vert</option>
+            <option value="purple">Violet</option>
+            <option value="black">Noir</option>
+            <option value="yellow">Jaune</option>
+            <option value="pink">Rose</option>
+          </select>
+        </div>
+
+        <!-- Bouton de génération -->
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           Générer le CV
         </button>
       </form>
     </section>
 
-    <!-- Aperçu -->
-    <section id="cv-preview" class="w-full md:w-1/2 bg-white p-6 rounded shadow">
+    <!-- Section Aperçu -->
+    <section id="cv-preview" class="w-full md:w-1/2 bg-white p-6 rounded shadow border-2">
       <h2 class="text-xl font-bold mb-4">👀 Aperçu du CV</h2>
       <div id="cv-output" class="space-y-2 text-sm text-gray-700">
         <p><strong>Nom :</strong> <span id="preview-name">-</span></p>
@@ -73,6 +79,7 @@
 
   </div>
 
+  <!-- Script principal -->
   <script src="../src/main.js" type="module"></script>
 </body>
 </html>
