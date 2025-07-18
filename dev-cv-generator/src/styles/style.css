@@ -52,3 +52,41 @@ body {
   font-size: 0.9rem;
   color: #777;
 }
+
+/* styles.css */
+#content.simple {
+  display: block;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+#content.compact {
+  font-size: 0.85rem;
+  padding: 10px;
+  line-height: 1.2;
+}
+
+#content.modern {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#content.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+#content.detailed {
+  padding: 30px;
+  font-size: 1.1rem;
+  border-left: 4px solid blue;
+}
+
+#content.minimal {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: gray;
+  padding: 5px;
+}
