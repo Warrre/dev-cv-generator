@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYP        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f8fafc;
+            --accent-color: #e11d48;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            
+            /* Variables pour les thèmes */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --card-bg: #1e293b;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: #334155;
+        }html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVPro - Générateur de CV Professionnel pour Développeurs</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="shared-theme.css">
     <style>
         :root {
             --primary-color: #2563eb;
@@ -15,6 +47,154 @@
             --border-color: #e2e8f0;
             --success-color: #10b981;
             --warning-color: #f59e0b;
+            
+            /* Mode jour/nuit variables */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-hero: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --card-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations pour les modes */
+        @keyframes dayParticles {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes nightStars {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(30px); }
+        }
+
+        /* Particules pour mode jour */
+        .day-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .day-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: dayParticles 6s ease-in-out infinite;
+        }
+
+        /* Étoiles pour mode nuit */
+        .night-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .night-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: nightStars 4s ease-in-out infinite;
+        }
+
+        /* Nuages pour mode jour */
+        .day-clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            animation: cloudFloat 8s ease-in-out infinite;
+        }
+
+        .cloud:before,
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 30px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cloud1:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 30px;
+            top: -10px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 25px;
+            top: 40%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .cloud2:before {
+            width: 30px;
+            height: 30px;
+            top: -15px;
+            left: 10px;
+        }
+
+        .cloud2:after {
+            width: 40px;
+            height: 25px;
+            top: -8px;
+            right: 15px;
         }
 
         * {
@@ -26,8 +206,12 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: var(--text-dark);
+            color: var(--text-primary);
             overflow-x: hidden;
+            background: var(--bg-primary);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            opacity: 0;
+            position: relative;
         }
 
         /* Navigation */
@@ -35,11 +219,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px var(--shadow);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -56,23 +241,63 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
+        }
+
+        /* Bouton toggle thème */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            width: 50px;
+            height: 30px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+        }
+
+        .theme-toggle-inner {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            left: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        [data-theme="dark"] .theme-toggle-inner {
+            left: 24px;
+            background: #fbbf24;
         }
 
         .cta-button {
@@ -92,12 +317,13 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-gradient);
             padding: 120px 0 80px;
             text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
+            transition: background 0.5s ease;
         }
 
         .hero::before {
@@ -391,6 +617,100 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Animation de fond générale */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Particules pour le mode jour */
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.2;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.6;
+            }
+        }
+
+        /* Étoiles pour le mode sombre */
+        .star {
+            position: absolute;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { 
+                opacity: 0.3; 
+                transform: scale(0.8);
+                box-shadow: 0 0 5px #fbbf24;
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1.2);
+                box-shadow: 0 0 15px #fbbf24;
+            }
+        }
+
+        /* Nuages pour le mode jour */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .cloud::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .cloud::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 8px;
+            width: 40px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        @keyframes drift {
+            0%, 100% { 
+                transform: translateX(-30px) translateY(0px);
+            }
+            50% { 
+                transform: translateX(30px) translateY(-10px);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -421,6 +741,13 @@
                 <li><a href="conseils.html">Conseils</a></li>
                 <li><a href="fonctionnalites.html">Fonctionnalités</a></li>
                 <li><a href="about.html">À Propos</a></li>
+                <li>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <div class="theme-toggle-inner">
+                            <span class="theme-icon">🌙</span>
+                        </div>
+                    </button>
+                </li>
             </ul>
             <a href="index.html" class="cta-button">Créer un CV</a>
         </div>
@@ -629,5 +956,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="theme-manager.js"></script>
 </body>
 </html>

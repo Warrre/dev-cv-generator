@@ -1,0 +1,244 @@
+/* Variables CSS pour les thèmes dynamiques */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #f8fafc;
+    --accent-color: #e11d48;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    
+    /* Variables pour les thèmes */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --card-bg: #ffffff;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --shadow: rgba(0, 0, 0, 0.1);
+    --border: #e2e8f0;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --card-bg: #1e293b;
+    --nav-bg: rgba(15, 23, 42, 0.95);
+    --shadow: rgba(0, 0, 0, 0.3);
+    --border: #334155;
+}
+
+/* Styles globaux */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    opacity: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animation de fond générale */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Particules pour le mode jour */
+.particle {
+    position: absolute;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.2;
+    }
+    50% { 
+        transform: translateY(-30px) rotate(180deg);
+        opacity: 0.6;
+    }
+}
+
+/* Étoiles pour le mode sombre */
+.star {
+    position: absolute;
+    background: #fbbf24;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { 
+        opacity: 0.3; 
+        transform: scale(0.8);
+        box-shadow: 0 0 5px #fbbf24;
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1.2);
+        box-shadow: 0 0 15px #fbbf24;
+    }
+}
+
+/* Nuages pour le mode jour */
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    width: 60px;
+    height: 30px;
+    animation: drift 20s ease-in-out infinite;
+}
+
+.cloud::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.cloud::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    width: 40px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+@keyframes drift {
+    0%, 100% { 
+        transform: translateX(-30px) translateY(0px);
+    }
+    50% { 
+        transform: translateX(30px) translateY(-10px);
+    }
+}
+
+/* Navigation commune */
+.navbar {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.nav-content, .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Bouton toggle thème */
+.theme-toggle {
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary-color);
+}
+
+.theme-toggle-inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+[data-theme="dark"] .theme-toggle-inner {
+    left: 24px;
+    background: #fbbf24;
+}
+
+/* Cartes communes */
+.card, .cv-example, .feature-card, .template-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+/* Boutons */
+.btn-primary, .cta-button {
+    background: var(--primary-color);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .cta-button:hover {
+    background: #1d4ed8;
+}
+
+/* Sections hero */
+.hero {
+    background: var(--bg-gradient);
+    transition: background 0.5s ease;
+}

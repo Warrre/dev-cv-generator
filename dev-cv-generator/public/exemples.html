@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemples de CV - Générateur de CV Professionnel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="shared-theme.css">
     <style>
         * {
             margin: 0;
@@ -379,7 +380,7 @@
     <nav class="navbar">
         <div class="nav-content">
             <a href="home.html" class="logo">
-                <i class="fas fa-file-alt"></i> CV Generator
+                <i class="fas fa-file-alt"></i> CVPro
             </a>
             <ul class="nav-links">
                 <li><a href="home.html">Accueil</a></li>
@@ -388,6 +389,13 @@
                 <li><a href="conseils.html">Conseils</a></li>
                 <li><a href="fonctionnalites.html">Fonctionnalités</a></li>
                 <li><a href="about.html">À propos</a></li>
+                <li>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <div class="theme-toggle-inner">
+                            <span class="theme-icon">🌙</span>
+                        </div>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -939,5 +947,6 @@
             }
         });
     </script>
+    <script src="theme-manager.js"></script>
 </body>
 </html>
