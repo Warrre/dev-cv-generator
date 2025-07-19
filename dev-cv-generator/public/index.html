@@ -17,6 +17,17 @@
             --warning-color: #f59e0b;
         }
 
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --secondary-color: #1e293b;
+            --accent-color: #f43f5e;
+            --text-dark: #f1f5f9;
+            --text-light: #94a3b8;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -28,6 +39,212 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: var(--text-dark);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        /* Dynamic Background Elements */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 10s infinite linear;
+        }
+
+        [data-theme="dark"] .bg-circle {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .bg-circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .bg-circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            left: 80%;
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        .bg-circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 70%;
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+
+        .bg-circle:nth-child(4) {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            left: 20%;
+            animation-delay: -15s;
+            animation-duration: 35s;
+        }
+
+        .bg-circle:nth-child(5) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            left: 50%;
+            animation-delay: -8s;
+            animation-duration: 22s;
+        }
+
+        .bg-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0.05;
+            animation: rotate 40s infinite linear;
+        }
+
+        [data-theme="dark"] .bg-triangle {
+            opacity: 0.08;
+        }
+
+        .bg-triangle:nth-child(6) {
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86px solid rgba(255, 255, 255, 0.3);
+            top: 15%;
+            left: 40%;
+            animation-delay: 0s;
+        }
+
+        [data-theme="dark"] .bg-triangle:nth-child(6) {
+            border-bottom-color: rgba(244, 63, 94, 0.3);
+        }
+
+        .bg-triangle:nth-child(7) {
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 130px solid rgba(255, 255, 255, 0.2);
+            top: 50%;
+            left: 75%;
+            animation-delay: -10s;
+            animation-duration: 50s;
+        }
+
+        [data-theme="dark"] .bg-triangle:nth-child(7) {
+            border-bottom-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .bg-square {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            animation: pulse 15s infinite ease-in-out;
+            transform-origin: center;
+        }
+
+        [data-theme="dark"] .bg-square {
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        .bg-square:nth-child(8) {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            left: 15%;
+            animation-delay: 0s;
+            transform: rotate(45deg);
+        }
+
+        .bg-square:nth-child(9) {
+            width: 80px;
+            height: 80px;
+            top: 75%;
+            left: 60%;
+            animation-delay: -7s;
+            transform: rotate(30deg);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) translateX(20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(20px) translateX(-15px) rotate(240deg);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.05;
+            }
+            50% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 0.1;
+            }
+        }
+
+        /* Particle effect for dark mode */
+        [data-theme="dark"] .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(59, 130, 246, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(244, 63, 94, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(16, 185, 129, 0.3), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(245, 158, 11, 0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(59, 130, 246, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: stars 5s linear infinite;
+        }
+
+        @keyframes stars {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-100px);
+            }
         }
 
         .container {
@@ -52,6 +269,11 @@
             margin-bottom: 20px;
         }
 
+        [data-theme="dark"] .header {
+            background: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
         .header h1 {
             color: var(--primary-color);
             font-size: 2.5rem;
@@ -74,6 +296,11 @@
             height: fit-content;
             overflow-y: auto;
             max-height: calc(100vh - 200px);
+        }
+
+        [data-theme="dark"] .form-section {
+            background: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .form-section h2 {
@@ -106,6 +333,15 @@
             font-size: 14px;
             transition: all 0.3s ease;
             background: white;
+            color: var(--text-dark);
+        }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea,
+        [data-theme="dark"] .form-group select {
+            background: #374151;
+            color: var(--text-dark);
+            border-color: var(--border-color);
         }
 
         .form-group input:focus,
@@ -143,6 +379,11 @@
             background: white;
         }
 
+        [data-theme="dark"] .layout-option {
+            background: #374151;
+            color: var(--text-dark);
+        }
+
         .layout-option:hover {
             border-color: var(--primary-color);
             transform: translateY(-2px);
@@ -150,7 +391,11 @@
 
         .layout-option.active {
             border-color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.1);
+            background: rgba(243, 245, 252, 0.1);
+        }
+
+        [data-theme="dark"] .layout-option.active {
+            background: rgba(59, 130, 246, 0.2);
         }
 
         .layout-option i {
@@ -228,6 +473,11 @@
             overflow-y: auto;
         }
 
+        [data-theme="dark"] .preview-section {
+            background: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
         .preview-header {
             display: flex;
             justify-content: space-between;
@@ -268,6 +518,11 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             min-height: 500px;
+        }
+
+        [data-theme="dark"] .cv-preview {
+            background: #374151;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* Layout Styles */
@@ -415,6 +670,10 @@
             border-left: 4px solid var(--primary-color);
         }
 
+        [data-theme="dark"] .cv-item {
+            background: #475569;
+        }
+
         .cv-item h4 {
             color: var(--text-dark);
             margin-bottom: 5px;
@@ -477,10 +736,165 @@
             background: var(--primary-color);
             border-radius: 3px;
         }
+
+        /* Photo Upload */
+        .photo-upload {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            margin: 0 auto 15px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview i {
+            font-size: 2rem;
+            color: var(--text-light);
+        }
+
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+
+        .photo-upload-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .photo-upload-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .photo-remove-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .photo-remove-btn:hover {
+            background: #be185d;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            backdrop-filter: blur(10px);
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--text-dark);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 16px;
+        }
+
+        /* CV Photo in layouts */
+        .cv-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .layout-modern .cv-photo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .layout-creative .cv-photo {
+            width: 90px;
+            height: 90px;
+            border: 3px solid white;
+        }
+
+        .layout-timeline .cv-photo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .layout-minimalist .cv-photo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
+    <!-- Dynamic Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-triangle"></div>
+        <div class="bg-triangle"></div>
+        <div class="bg-square"></div>
+        <div class="bg-square"></div>
+    </div>
+
     <div class="container">
+        <!-- Dark Mode Toggle -->
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="themeIcon"></i>
+            <span id="themeText">Mode Nuit</span>
+        </div>
+
         <!-- Header -->
         <header class="header">
             <h1><i class="fas fa-file-alt"></i> Générateur de CV Professionnel</h1>
@@ -522,6 +936,20 @@
             <div class="form-group">
                 <label for="fullName">Nom complet *</label>
                 <input type="text" id="fullName" placeholder="Jean Dupont" required>
+            </div>
+
+            <!-- Photo Upload -->
+            <div class="photo-upload">
+                <div class="photo-preview" id="photoPreview">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
+                <button type="button" class="photo-upload-btn" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-upload"></i> Ajouter Photo
+                </button>
+                <button type="button" class="photo-remove-btn" onclick="removePhoto()" style="display: none;" id="removePhotoBtn">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
             </div>
 
             <div class="form-group">
@@ -713,11 +1141,19 @@
     <script>
         // Current layout
         let currentLayout = 'professional';
+        let currentPhoto = null;
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
             updatePreview();
+            // Load theme preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+                document.getElementById('themeText').textContent = 'Mode Jour';
+            }
         });
 
         // Setup event listeners
@@ -775,6 +1211,7 @@
                 website: document.getElementById('website').value || '',
                 summary: document.getElementById('summary').value || 'Votre résumé professionnel apparaîtra ici...',
                 skills: document.getElementById('skills').value || 'Vos compétences apparaîtront ici...',
+                photo: currentPhoto,
                 experiences: collectExperiences(),
                 education: collectEducation(),
                 languages: collectLanguages()
@@ -828,6 +1265,7 @@
             return `
                 <div class="layout-professional">
                     <div class="cv-header">
+                        ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo" style="margin-bottom: 20px;">` : ''}
                         <div class="cv-name">${data.fullName}</div>
                         <div class="cv-title">${data.jobTitle}</div>
                         <div class="cv-contact" style="margin-top: 15px; color: var(--text-light);">
@@ -887,6 +1325,7 @@
             return `
                 <div class="layout-modern">
                     <div class="sidebar">
+                        ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo">` : ''}
                         <div class="cv-name">${data.fullName}</div>
                         <div class="cv-title" style="margin-bottom: 25px;">${data.jobTitle}</div>
                         
@@ -949,6 +1388,7 @@
                 <div class="layout-creative">
                     <div class="cv-content">
                         <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; border-radius: 15px;">
+                            ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo" style="margin-bottom: 15px;">` : ''}
                             <h1 style="font-size: 2.2rem; margin-bottom: 10px;">${data.fullName}</h1>
                             <h2 style="font-size: 1.3rem; opacity: 0.9;">${data.jobTitle}</h2>
                             <div style="margin-top: 15px; font-size: 0.9rem;">
@@ -1023,6 +1463,7 @@
             return `
                 <div class="layout-timeline">
                     <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid var(--primary-color); padding-bottom: 20px;">
+                        ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo">` : ''}
                         <h1 style="font-size: 2.5rem; color: var(--text-dark); margin-bottom: 10px;">${data.fullName}</h1>
                         <h2 style="font-size: 1.3rem; color: var(--text-light);">${data.jobTitle}</h2>
                         <div style="margin-top: 15px; color: var(--text-light);">
@@ -1082,6 +1523,7 @@
             return `
                 <div class="layout-minimalist">
                     <div style="margin-bottom: 40px;">
+                        ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo">` : ''}
                         <h1 style="font-size: 3rem; font-weight: 300; color: var(--text-dark); margin-bottom: 10px;">${data.fullName}</h1>
                         <h2 style="font-size: 1.5rem; font-weight: 300; color: var(--text-light); margin-bottom: 20px;">${data.jobTitle}</h2>
                         <div style="color: var(--text-light); font-size: 1rem;">
@@ -1286,6 +1728,49 @@
             };
             html2pdf().set(opt).from(element).save();
             */
+        }
+
+        // Photo upload functionality
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentPhoto = e.target.result;
+                    document.getElementById('photoPreview').innerHTML = `<img src="${currentPhoto}" alt="Photo">`;
+                    document.getElementById('removePhotoBtn').style.display = 'inline-block';
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removePhoto() {
+            currentPhoto = null;
+            document.getElementById('photoPreview').innerHTML = '<i class="fas fa-camera"></i>';
+            document.getElementById('removePhotoBtn').style.display = 'none';
+            document.getElementById('photoInput').value = '';
+            updatePreview();
+        }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (newTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Mode Jour';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Mode Nuit';
+            }
         }
     </script>
 </body>
