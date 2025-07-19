@@ -64,7 +64,7 @@
             position: absolute;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
-            animation: float 10s infinite linear;
+            animation: float 5s infinite linear;
         }
 
         [data-theme="dark"] .bg-circle {
@@ -77,7 +77,7 @@
             top: 10%;
             left: 10%;
             animation-delay: 0s;
-            animation-duration: 25s;
+            animation-duration: 20s;
         }
 
         .bg-circle:nth-child(2) {
@@ -104,7 +104,7 @@
             top: 60%;
             left: 20%;
             animation-delay: -15s;
-            animation-duration: 35s;
+            animation-duration: 25s;
         }
 
         .bg-circle:nth-child(5) {
@@ -113,7 +113,7 @@
             top: 40%;
             left: 50%;
             animation-delay: -8s;
-            animation-duration: 22s;
+            animation-duration: 19s;
         }
 
         .bg-triangle {
@@ -368,6 +368,62 @@
             gap: 15px;
             margin-top: 15px;
         }
+
+        /* Color Selector */
+        .color-selector {
+            margin-bottom: 25px;
+        }
+
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-option.active {
+            border-color: var(--text-dark);
+            transform: scale(1.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-option i {
+            font-size: 16px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .color-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .color-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .color-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .color-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .color-orange { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .color-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .color-yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .color-black { background: linear-gradient(135deg, #374151, #1f2937); }
+        .color-white { 
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0); 
+            border: 2px solid #e2e8f0;
+        }
+        .color-white i { color: #374151; }
 
         .layout-option {
             padding: 15px 10px;
@@ -932,6 +988,40 @@
                 </div>
             </div>
 
+            <!-- Color Selector -->
+            <div class="color-selector">
+                <label>Choisissez votre couleur :</label>
+                <div class="color-options">
+                    <div class="color-option color-blue active" data-color="blue" title="Bleu">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="color-option color-green" data-color="green" title="Vert">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-purple" data-color="purple" title="Violet">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-pink" data-color="pink" title="Rose">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-orange" data-color="orange" title="Orange">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-red" data-color="red" title="Rouge">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-yellow" data-color="yellow" title="Jaune">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-black" data-color="black" title="Noir">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="color-option color-white" data-color="white" title="Blanc">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                </div>
+            </div>
+
             <!-- Personal Info -->
             <div class="form-group">
                 <label for="fullName">Nom complet *</label>
@@ -1139,20 +1229,41 @@
     </div>
 
     <script>
-        // Current layout
+        // Current layout and color
         let currentLayout = 'professional';
+        let currentColor = 'blue';
         let currentPhoto = null;
+
+        // Color themes
+        const colorThemes = {
+            blue: { primary: '#2563eb', secondary: '#1d4ed8', accent: '#3b82f6' },
+            green: { primary: '#10b981', secondary: '#059669', accent: '#34d399' },
+            purple: { primary: '#8b5cf6', secondary: '#7c3aed', accent: '#a78bfa' },
+            pink: { primary: '#ec4899', secondary: '#db2777', accent: '#f472b6' },
+            orange: { primary: '#f97316', secondary: '#ea580c', accent: '#fb923c' },
+            red: { primary: '#ef4444', secondary: '#dc2626', accent: '#f87171' },
+            yellow: { primary: '#f59e0b', secondary: '#d97706', accent: '#fbbf24' },
+            black: { primary: '#374151', secondary: '#1f2937', accent: '#6b7280' },
+            white: { primary: '#f8fafc', secondary: '#e2e8f0', accent: '#cbd5e1' }
+        };
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
             updatePreview();
+            
             // Load theme preference
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 document.getElementById('themeIcon').className = 'fas fa-sun';
                 document.getElementById('themeText').textContent = 'Mode Jour';
+            }
+            
+            // Load color preference
+            const savedColor = localStorage.getItem('selectedColor') || 'blue';
+            if (savedColor !== 'blue') {
+                document.querySelector(`.color-option[data-color="${savedColor}"]`).click();
             }
         });
 
@@ -1168,11 +1279,51 @@
                 });
             });
 
+            // Color selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(o => {
+                        o.classList.remove('active');
+                        o.querySelector('i').style.display = 'none';
+                    });
+                    this.classList.add('active');
+                    this.querySelector('i').style.display = 'block';
+                    currentColor = this.dataset.color;
+                    applyColorTheme(currentColor);
+                    updatePreview();
+                });
+            });
+
             // Form inputs
             const inputs = document.querySelectorAll('input, textarea, select');
             inputs.forEach(input => {
                 input.addEventListener('input', updatePreview);
             });
+        }
+
+        // Apply color theme
+        function applyColorTheme(color) {
+            const theme = colorThemes[color];
+            const root = document.documentElement;
+            
+            // Update CSS variables
+            root.style.setProperty('--primary-color', theme.primary);
+            root.style.setProperty('--accent-color', theme.accent);
+            
+            // Special handling for light/dark colors
+            if (color === 'white') {
+                root.style.setProperty('--cv-text-color', '#1f2937');
+                root.style.setProperty('--cv-bg-color', '#ffffff');
+            } else if (color === 'black') {
+                root.style.setProperty('--cv-text-color', '#f8fafc');
+                root.style.setProperty('--cv-bg-color', '#1f2937');
+            } else {
+                root.style.setProperty('--cv-text-color', 'var(--text-dark)');
+                root.style.setProperty('--cv-bg-color', '#ffffff');
+            }
+            
+            // Save color preference
+            localStorage.setItem('selectedColor', color);
         }
 
         // Update preview based on current layout
