@@ -1,6 +1,6 @@
 /* Variables CSS pour les thèmes dynamiques */
 :root {
-    --primary-color: #2563eb;
+    --primary-color: #3b82f6;
     --secondary-color: #f8fafc;
     --accent-color: #e11d48;
     --text-dark: #1e293b;
@@ -9,28 +9,37 @@
     --success-color: #10b981;
     --warning-color: #f59e0b;
     
-    /* Variables pour les thèmes */
+    /* Variables pour les thèmes jour */
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
     --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --text-primary: #1e293b;
     --text-secondary: #64748b;
+    --text-on-card: #1e293b;
+    --text-on-dark: #ffffff;
     --card-bg: #ffffff;
     --nav-bg: rgba(255, 255, 255, 0.95);
     --shadow: rgba(0, 0, 0, 0.1);
     --border: #e2e8f0;
+    --feature-text: #374151;
+    --section-title: #1e293b;
 }
 
 [data-theme="dark"] {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --card-bg: #1e293b;
-    --nav-bg: rgba(15, 23, 42, 0.95);
-    --shadow: rgba(0, 0, 0, 0.3);
-    --border: #334155;
+    --bg-primary: #0a0f1c;
+    --bg-secondary: #1a202c;
+    --bg-gradient: linear-gradient(135deg, #1a202c 0%, #2d3748 30%, #4a5568 60%, #2b6cb0 100%);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --text-on-card: #f7fafc;
+    --text-on-dark: #cbd5e1;
+    --card-bg: #2d3748;
+    --nav-bg: rgba(26, 32, 44, 0.95);
+    --shadow: rgba(0, 0, 0, 0.5);
+    --border: #4a5568;
+    --feature-text: #e2e8f0;
+    --section-title: #f7fafc;
+    --primary-color: #60a5fa;
 }
 
 /* Styles globaux */
@@ -67,32 +76,68 @@ body {
 @keyframes float {
     0%, 100% { 
         transform: translateY(0px) rotate(0deg);
-        opacity: 0.2;
+        opacity: 0.3;
     }
-    50% { 
-        transform: translateY(-30px) rotate(180deg);
-        opacity: 0.6;
+    33% {
+        transform: translateY(-15px) rotate(120deg);
+        opacity: 0.7;
+    }
+    66% {
+        transform: translateY(-25px) rotate(240deg);
+        opacity: 0.5;
+    }
+    100% { 
+        transform: translateY(-35px) rotate(360deg);
+        opacity: 0.8;
     }
 }
 
-/* Étoiles pour le mode sombre */
+/* Étoiles pour le mode sombre - Version dynamique */
 .star {
     position: absolute;
-    background: #fbbf24;
     border-radius: 50%;
     animation: twinkle 3s ease-in-out infinite alternate;
 }
 
+.star:nth-child(odd) {
+    background: #60a5fa;
+    box-shadow: 0 0 10px #60a5fa;
+    animation-duration: 2s;
+}
+
+.star:nth-child(even) {
+    background: #fbbf24;
+    box-shadow: 0 0 8px #fbbf24;
+    animation-duration: 3.5s;
+}
+
+.star:nth-child(3n) {
+    background: #a78bfa;
+    box-shadow: 0 0 12px #a78bfa;
+    animation-duration: 4s;
+}
+
+.star:nth-child(5n) {
+    background: #34d399;
+    box-shadow: 0 0 6px #34d399;
+    animation-duration: 2.8s;
+}
+
 @keyframes twinkle {
     0% { 
-        opacity: 0.3; 
-        transform: scale(0.8);
-        box-shadow: 0 0 5px #fbbf24;
+        opacity: 0.2; 
+        transform: scale(0.5) rotate(0deg);
+        box-shadow: 0 0 5px currentColor;
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1) rotate(180deg);
+        box-shadow: 0 0 20px currentColor;
     }
     100% { 
         opacity: 1; 
-        transform: scale(1.2);
-        box-shadow: 0 0 15px #fbbf24;
+        transform: scale(1.3) rotate(360deg);
+        box-shadow: 0 0 25px currentColor;
     }
 }
 
@@ -241,4 +286,71 @@ body {
 .hero {
     background: var(--bg-gradient);
     transition: background 0.5s ease;
+}
+
+/* Amélioration du contraste pour le mode nuit */
+[data-theme="dark"] .section-title {
+    color: var(--section-title);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .feature-card h3,
+[data-theme="dark"] .layout-info h3,
+[data-theme="dark"] .testimonial-author {
+    color: var(--text-on-card);
+}
+
+[data-theme="dark"] .feature-card p,
+[data-theme="dark"] .layout-info p,
+[data-theme="dark"] .testimonial-text,
+[data-theme="dark"] .testimonial-role {
+    color: var(--feature-text);
+}
+
+[data-theme="dark"] .features {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .testimonials {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .hero h1 {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .hero p {
+    color: var(--text-on-dark);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation pulsante pour le bouton en mode nuit */
+[data-theme="dark"] .theme-toggle-inner {
+    animation: nightPulse 2s ease-in-out infinite;
+}
+
+@keyframes nightPulse {
+    0%, 100% { 
+        box-shadow: 0 0 5px #fbbf24;
+        transform: translateY(-50%) scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 15px #fbbf24, 0 0 25px rgba(251, 191, 36, 0.3);
+        transform: translateY(-50%) scale(1.05);
+    }
+}
+
+/* Animation météore pour le mode nuit */
+@keyframes meteorFall {
+    0% {
+        transform: translateX(0) translateY(0) rotate(45deg);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(300px) translateY(300px) rotate(45deg);
+        opacity: 0;
+    }
 }

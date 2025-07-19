@@ -57,37 +57,87 @@ class ThemeManager {
         container.innerHTML = '';
 
         if (this.currentTheme === 'dark') {
-            // Créer des étoiles pour le mode sombre
-            for (let i = 0; i < 50; i++) {
+            // Créer des étoiles dynamiques multicolores pour le mode sombre
+            const starColors = [
+                { color: '#60a5fa', glow: '#60a5fa' },    // Bleu
+                { color: '#fbbf24', glow: '#fbbf24' },    // Jaune
+                { color: '#a78bfa', glow: '#a78bfa' },    // Violet
+                { color: '#34d399', glow: '#34d399' },    // Vert
+                { color: '#f472b6', glow: '#f472b6' },    // Rose
+                { color: '#ffffff', glow: '#ffffff' }      // Blanc
+            ];
+
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
+                
+                // Taille variable des étoiles
+                const size = Math.random() * 4 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Couleur aléatoire
+                const colorIndex = Math.floor(Math.random() * starColors.length);
+                const selectedColor = starColors[colorIndex];
+                star.style.background = selectedColor.color;
+                star.style.boxShadow = `0 0 ${size * 3}px ${selectedColor.glow}`;
+                
+                // Position aléatoire
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 2 + 's';
+                
+                // Animation aléatoire
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
                 container.appendChild(star);
             }
+
+            // Ajouter quelques météores occasionnels
+            for (let i = 0; i < 3; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                meteor.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: #ffffff;
+                    border-radius: 50%;
+                    top: ${Math.random() * 50}%;
+                    left: ${Math.random() * 100}%;
+                    animation: meteorFall ${Math.random() * 3 + 2}s linear infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                    box-shadow: 0 0 10px #ffffff, -100px 0 20px rgba(255,255,255,0.3);
+                `;
+                container.appendChild(meteor);
+            }
+
         } else {
-            // Créer des particules pour le mode jour
-            for (let i = 0; i < 30; i++) {
+            // Créer des particules améliorées pour le mode jour
+            for (let i = 0; i < 40; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                particle.style.width = Math.random() * 6 + 2 + 'px';
-                particle.style.height = particle.style.width;
+                
+                const size = Math.random() * 8 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.background = `hsl(${220 + Math.random() * 40}, 70%, 60%)`;
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                
                 container.appendChild(particle);
             }
 
-            // Ajouter quelques nuages
-            for (let i = 0; i < 5; i++) {
+            // Ajouter des nuages plus réalistes
+            for (let i = 0; i < 8; i++) {
                 const cloud = document.createElement('div');
                 cloud.className = 'cloud';
-                cloud.style.left = Math.random() * 80 + '%';
-                cloud.style.top = Math.random() * 60 + '%';
-                cloud.style.animationDelay = Math.random() * 15 + 's';
+                cloud.style.left = Math.random() * 100 + '%';
+                cloud.style.top = Math.random() * 70 + '%';
+                cloud.style.animationDelay = Math.random() * 20 + 's';
+                cloud.style.opacity = Math.random() * 0.3 + 0.1;
                 container.appendChild(cloud);
             }
         }
