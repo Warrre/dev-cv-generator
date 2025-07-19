@@ -176,4 +176,195 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Erreur lors de la copie de l'URL.");
     });
   });
+
+  // ================================
+  // INTÉGRATION API BACKEND
+  // ================================
+
+  // Fonction pour collecter toutes les données du formulaire
+  function collectFormData() {
+    return {
+      firstName: inputs.firstName.value.trim(),
+      name: inputs.name.value.trim(),
+      email: inputs.email.value.trim(),
+      linkedin: inputs.linkedin.value.trim(),
+      github: inputs.github.value.trim(),
+      photo: inputs.photo.value.trim(),
+      profile: inputs.profile.value.trim(),
+      skills: inputs.skills.value.trim().split(',').map(s => s.trim()).filter(s => s),
+      diploma: inputs.diploma.value.trim(),
+      experience: inputs.experience.value.trim(),
+      project: inputs.project.value.trim(),
+      languages: inputs.languages.value.trim()
+    };
+  }
+
+  // Fonction pour générer le PDF via l'API
+  async function generatePDF() {
+    const generateBtn = document.getElementById('generate-pdf-btn');
+    const originalText = generateBtn?.textContent || 'Générer PDF';
+    
+    try {
+      // Afficher l'état de chargement
+      if (generateBtn) {
+        generateBtn.textContent = 'Génération en cours...';
+        generateBtn.disabled = true;
+      }
+
+      // Collecter les données du formulaire
+      const formData = collectFormData();
+      
+      // Validation basique côté client
+      if (!formData.firstName || !formData.name || !formData.email) {
+        throw new Error('Veuillez remplir au moins le prénom, nom et email');
+      }
+
+      console.log('📤 Envoi des données au backend:', formData);
+
+      // Envoyer la requête à l'API
+      const response = await fetch('/api/generate-cv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || `Erreur HTTP ${response.status}`);
+      }
+
+      if (result.success) {
+        console.log('✅ CV généré avec succès:', result);
+        
+        // Afficher le message de succès
+        showNotification('CV généré avec succès! 🎉', 'success');
+        
+        // Ouvrir le PDF dans un nouvel onglet
+        if (result.downloadUrl) {
+          window.open(result.downloadUrl, '_blank');
+        }
+        
+        // Optionnel: proposer le téléchargement direct
+        if (result.filename) {
+          const downloadLink = document.createElement('a');
+          downloadLink.href = result.downloadUrl;
+          downloadLink.download = result.filename;
+          downloadLink.style.display = 'none';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }
+      } else {
+        throw new Error(result.error || 'Erreur inconnue');
+      }
+
+    } catch (error) {
+      console.error('❌ Erreur lors de la génération du PDF:', error);
+      showNotification(`Erreur: ${error.message}`, 'error');
+    } finally {
+      // Restaurer le bouton
+      if (generateBtn) {
+        generateBtn.textContent = originalText;
+        generateBtn.disabled = false;
+      }
+    }
+  }
+
+  // Fonction pour afficher des notifications
+  function showNotification(message, type = 'info') {
+    // Créer l'élément notification
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+    
+    // Styles selon le type
+    const styles = {
+      success: 'bg-green-500 text-white',
+      error: 'bg-red-500 text-white',
+      info: 'bg-blue-500 text-white',
+      warning: 'bg-yellow-500 text-black'
+    };
+    
+    notification.className += ` ${styles[type] || styles.info}`;
+    notification.textContent = message;
+    
+    // Ajouter au DOM
+    document.body.appendChild(notification);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+      notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Suppression automatique après 5 secondes
+    setTimeout(() => {
+      notification.classList.add('translate-x-full');
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    }, 5000);
+    
+    // Permettre la fermeture au clic
+    notification.addEventListener('click', () => {
+      notification.classList.add('translate-x-full');
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    });
+  }
+
+  // Ajouter le bouton de génération PDF s'il n'existe pas
+  function addGeneratePDFButton() {
+    const existingBtn = document.getElementById('generate-pdf-btn');
+    if (existingBtn) return;
+
+    const container = document.querySelector('.container') || document.body;
+    const pdfSection = document.createElement('div');
+    pdfSection.className = 'pdf-section mt-6 text-center';
+    pdfSection.innerHTML = `
+      <button id="generate-pdf-btn" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-200 hover:scale-105">
+        📄 Générer PDF
+      </button>
+      <p class="text-sm text-gray-600 mt-2">
+        Cliquez pour générer et télécharger votre CV en PDF
+      </p>
+    `;
+    
+    // Insérer avant la prévisualisation ou à la fin
+    const previewSection = document.querySelector('.cv-output') || container;
+    previewSection.parentNode.insertBefore(pdfSection, previewSection);
+    
+    // Attacher l'événement
+    document.getElementById('generate-pdf-btn').addEventListener('click', generatePDF);
+  }
+
+  // Initialiser le bouton PDF
+  addGeneratePDFButton();
+
+  // Test de connexion API au chargement
+  async function testAPIConnection() {
+    try {
+      const response = await fetch('/api/health');
+      const result = await response.json();
+      
+      if (response.ok) {
+        console.log('✅ Connexion API établie:', result.message);
+      } else {
+        console.warn('⚠️ API réponse inattendue:', result);
+      }
+    } catch (error) {
+      console.error('❌ Impossible de se connecter à l\'API:', error);
+      showNotification('Attention: API backend non disponible', 'warning');
+    }
+  }
+
+  // Tester la connexion API
+  testAPIConnection();
+
 });
