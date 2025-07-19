@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctionnalités - Générateur de CV Professionnel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        .header {
+            text-align: center;
+            margin: 120px 0 60px 0;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .feature-benefits {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-benefits li {
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-benefits li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .showcase-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .showcase-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .showcase-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .showcase-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .showcase-description {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .tech-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tech-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tech-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tech-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .tech-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .comparison-section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            border: 2px solid #e9ecef;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .check-icon {
+            color: #38a169;
+            font-size: 1.2rem;
+        }
+
+        .cross-icon {
+            color: #e53e3e;
+            font-size: 1.2rem;
+        }
+
+        .workflow-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .workflow-step {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px auto;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="home.html" class="logo">
+                <i class="fas fa-file-alt"></i> CV Generator
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="index.html">Générateur</a></li>
+                <li><a href="exemples.html">Exemples</a></li>
+                <li><a href="conseils.html">Conseils</a></li>
+                <li><a href="fonctionnalites.html" class="active">Fonctionnalités</a></li>
+                <li><a href="about.html">À propos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-cogs"></i> Fonctionnalités Avancées</h1>
+            <p>Découvrez tous les outils et fonctionnalités qui font de notre générateur la solution la plus complète pour créer votre CV professionnel.</p>
+        </header>
+
+        <!-- Core Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">Fonctionnalités Principales</h2>
+            <p class="section-subtitle">
+                Des outils puissants et intuitifs pour créer un CV professionnel qui se démarque de la concurrence.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-edit feature-icon"></i>
+                    <h3 class="feature-title">Édition en Temps Réel</h3>
+                    <p class="feature-description">
+                        Modifiez votre CV et voyez les changements s'appliquer instantanément dans l'aperçu. 
+                        Interface intuitive avec prévisualisation en direct.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Aperçu en temps réel de toutes les modifications</li>
+                        <li>Interface drag & drop pour réorganiser les sections</li>
+                        <li>Édition de texte enrichi avec formatage</li>
+                        <li>Validation automatique des champs obligatoires</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-palette feature-icon"></i>
+                    <h3 class="feature-title">Templates Professionnels</h3>
+                    <p class="feature-description">
+                        Choisissez parmi une collection de modèles conçus par des experts RH et adaptés 
+                        aux standards modernes de recrutement.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Plus de 10 modèles professionnels</li>
+                        <li>Designs adaptés à tous les secteurs</li>
+                        <li>Personnalisation complète des couleurs</li>
+                        <li>Layouts responsive et modernes</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-download feature-icon"></i>
+                    <h3 class="feature-title">Export PDF Optimisé</h3>
+                    <p class="feature-description">
+                        Exportez votre CV en PDF haute qualité, optimisé pour l'impression et la lecture 
+                        sur tous les appareils et systèmes ATS.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>PDF haute résolution (300 DPI)</li>
+                        <li>Compatible avec les systèmes ATS</li>
+                        <li>Optimisation automatique de la mise en page</li>
+                        <li>Compression intelligente des fichiers</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-save feature-icon"></i>
+                    <h3 class="feature-title">Sauvegarde Automatique</h3>
+                    <p class="feature-description">
+                        Ne perdez jamais votre travail grâce à la sauvegarde automatique en local. 
+                        Reprenez votre CV exactement où vous l'aviez laissé.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Sauvegarde automatique toutes les 30 secondes</li>
+                        <li>Stockage sécurisé en local</li>
+                        <li>Récupération automatique en cas de fermeture</li>
+                        <li>Historique des versions récentes</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3 class="feature-title">100% Responsive</h3>
+                    <p class="feature-description">
+                        Créez et modifiez votre CV sur n'importe quel appareil. Interface optimisée 
+                        pour desktop, tablette et mobile.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Interface adaptative sur tous les écrans</li>
+                        <li>Optimisation tactile pour mobile et tablette</li>
+                        <li>Performance optimisée sur tous les appareils</li>
+                        <li>Synchronisation cross-platform</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-language feature-icon"></i>
+                    <h3 class="feature-title">Support Multilingue</h3>
+                    <p class="feature-description">
+                        Interface disponible en français avec support pour la création de CV 
+                        dans plusieurs langues selon vos besoins professionnels.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Interface complète en français</li>
+                        <li>Support des caractères spéciaux</li>
+                        <li>Adaptation des formats selon la région</li>
+                        <li>Templates adaptés aux standards locaux</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Showcase Section -->
+        <section class="showcase-section">
+            <h2 class="section-title" style="color: white;">Ce Qui Nous Distingue</h2>
+            <p style="text-align: center; font-size: 1.1rem; opacity: 0.9; margin-bottom: 0;">
+                Les avantages qui font de notre générateur le choix préféré des professionnels.
+            </p>
+
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="showcase-title">Rapidité d'Exécution</h3>
+                    <p class="showcase-description">
+                        Créez un CV professionnel complet en moins de 10 minutes. 
+                        Notre interface optimisée accélère chaque étape du processus.
+                    </p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="showcase-title">Confidentialité Totale</h3>
+                    <p class="showcase-description">
+                        Vos données restent privées. Aucune information n'est envoyée 
+                        sur nos serveurs. Tout est traité localement dans votre navigateur.
+                    </p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="showcase-title">Qualité Professionnelle</h3>
+                    <p class="showcase-description">
+                        Designs créés par des experts RH et validés par des recruteurs. 
+                        Respecte les standards modernes de recrutement.
+                    </p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="showcase-title">Personnalisation Avancée</h3>
+                    <p class="showcase-description">
+                        Adaptez chaque élément selon vos besoins : couleurs, polices, 
+                        espacement, sections personnalisées et bien plus.
+                    </p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="showcase-title">Conseils Intégrés</h3>
+                    <p class="showcase-description">
+                        Bénéficiez de conseils contextuels pendant la création. 
+                        Tips et suggestions pour optimiser chaque section.
+                    </p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="showcase-title">100% Gratuit</h3>
+                    <p class="showcase-description">
+                        Accès complet à toutes les fonctionnalités sans frais cachés. 
+                        Pas d'abonnement, pas de watermark, pas de limitations.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section class="tech-section">
+            <h2 class="section-title">Technologies Modernes</h2>
+            <p class="section-subtitle">
+                Développé avec les dernières technologies web pour garantir performance, sécurité et compatibilité.
+            </p>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <div class="tech-name">HTML5</div>
+                    <div class="tech-description">Structure sémantique moderne et accessible</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <div class="tech-name">CSS3</div>
+                    <div class="tech-description">Styles avancés avec animations et responsive design</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="tech-name">JavaScript ES6+</div>
+                    <div class="tech-description">Logique moderne et interactive optimisée</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="tech-name">jsPDF</div>
+                    <div class="tech-description">Génération PDF côté client haute qualité</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="tech-name">LocalStorage</div>
+                    <div class="tech-description">Sauvegarde sécurisée des données localement</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="tech-name">Progressive Web App</div>
+                    <div class="tech-description">Installation possible et fonctionnement offline</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="tech-name">Sécurité Client</div>
+                    <div class="tech-description">Aucune donnée transmise, confidentialité garantie</div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="tech-name">Performance</div>
+                    <div class="tech-description">Optimisé pour un chargement ultra-rapide</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section class="workflow-section">
+            <h2 class="section-title">Comment Ça Marche ?</h2>
+            <p class="section-subtitle">
+                Un processus simple et guidé en 4 étapes pour créer votre CV professionnel.
+            </p>
+
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Choisissez un Template</h3>
+                    <p class="step-description">
+                        Sélectionnez le modèle qui correspond le mieux à votre secteur 
+                        et à votre style professionnel parmi notre collection.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Remplissez Vos Informations</h3>
+                    <p class="step-description">
+                        Complétez chaque section avec vos données personnelles, 
+                        expériences, compétences et formations avec notre interface intuitive.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Personnalisez le Design</h3>
+                    <p class="step-description">
+                        Ajustez les couleurs, la mise en page et l'organisation 
+                        des sections selon vos préférences et le poste visé.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Exportez en PDF</h3>
+                    <p class="step-description">
+                        Téléchargez votre CV au format PDF haute qualité, 
+                        optimisé pour l'impression et la lecture numérique.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison-section">
+            <h2 class="section-title">Comparaison avec la Concurrence</h2>
+            <p class="section-subtitle">
+                Découvrez pourquoi notre générateur surpasse les alternatives du marché.
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Fonctionnalité</th>
+                        <th>Notre Générateur</th>
+                        <th>Concurrents Gratuits</th>
+                        <th>Concurrents Payants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Templates Professionnels</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> 10+ modèles</td>
+                        <td><i class="fas fa-times cross-icon"></i> 2-3 modèles basiques</td>
+                        <td><i class="fas fa-check check-icon"></i> 5-15 modèles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Édition Temps Réel</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Oui, instantané</td>
+                        <td><i class="fas fa-times cross-icon"></i> Non ou limité</td>
+                        <td><i class="fas fa-check check-icon"></i> Parfois</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Export PDF Gratuit</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Illimité</td>
+                        <td><i class="fas fa-times cross-icon"></i> Avec watermark</td>
+                        <td><i class="fas fa-check check-icon"></i> Payant</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Confidentialité Données</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> 100% local</td>
+                        <td><i class="fas fa-times cross-icon"></i> Stockage serveur</td>
+                        <td><i class="fas fa-times cross-icon"></i> Stockage serveur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sauvegarde Auto</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Oui, continue</td>
+                        <td><i class="fas fa-times cross-icon"></i> Connexion requise</td>
+                        <td><i class="fas fa-check check-icon"></i> Compte requis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface Mobile</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Optimisée</td>
+                        <td><i class="fas fa-times cross-icon"></i> Basique</td>
+                        <td><i class="fas fa-check check-icon"></i> Variable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personnalisation</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Complète</td>
+                        <td><i class="fas fa-times cross-icon"></i> Limitée</td>
+                        <td><i class="fas fa-check check-icon"></i> Avancée</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support ATS</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Optimisé</td>
+                        <td><i class="fas fa-times cross-icon"></i> Non garanti</td>
+                        <td><i class="fas fa-check check-icon"></i> Variable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frais Cachés</strong></td>
+                        <td><i class="fas fa-check check-icon"></i> Aucun</td>
+                        <td><i class="fas fa-times cross-icon"></i> Fonctions premium</td>
+                        <td><i class="fas fa-times cross-icon"></i> Abonnement</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Prêt à Découvrir Toutes Ces Fonctionnalités ?</h2>
+            <p class="cta-description">
+                Testez dès maintenant notre générateur et créez votre CV professionnel en quelques minutes. 
+                Toutes les fonctionnalités sont disponibles gratuitement et sans inscription.
+            </p>
+            <div class="cta-buttons">
+                <a href="index.html" class="cta-button">
+                    <i class="fas fa-plus-circle"></i> Créer mon CV
+                </a>
+                <a href="exemples.html" class="cta-button secondary">
+                    <i class="fas fa-images"></i> Voir les exemples
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="home.html">Accueil</a>
+                <a href="index.html">Générateur</a>
+                <a href="exemples.html">Exemples</a>
+                <a href="conseils.html">Conseils</a>
+                <a href="fonctionnalites.html">Fonctionnalités</a>
+                <a href="about.html">À propos</a>
+            </div>
+            <p style="color: #666; margin-top: 20px;">
+                © 2024 Générateur de CV Professionnel. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards for animation
+        document.querySelectorAll('.feature-card, .showcase-item, .tech-card, .workflow-step').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

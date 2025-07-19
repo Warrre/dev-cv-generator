@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemples de CV - Générateur de CV Professionnel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        .header {
+            text-align: center;
+            margin: 120px 0 60px 0;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gallery-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: #f8f9fa;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .filter-tab.active,
+        .filter-tab:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .cv-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cv-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .cv-preview {
+            height: 400px;
+            background: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cv-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(102, 126, 234, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cv-card:hover .cv-overlay {
+            opacity: 1;
+        }
+
+        .preview-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cv-info {
+            padding: 20px;
+        }
+
+        .cv-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .cv-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .cv-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .cv-tag {
+            background: #f0f0ff;
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cv-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="home.html" class="logo">
+                <i class="fas fa-file-alt"></i> CV Generator
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="index.html">Générateur</a></li>
+                <li><a href="exemples.html" class="active">Exemples</a></li>
+                <li><a href="conseils.html">Conseils</a></li>
+                <li><a href="fonctionnalites.html">Fonctionnalités</a></li>
+                <li><a href="about.html">À propos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-images"></i> Galerie d'Exemples</h1>
+            <p>Découvrez notre collection de CV professionnels créés avec notre générateur. Inspirez-vous des meilleurs designs pour créer votre CV parfait.</p>
+        </header>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2 class="section-title">CV d'Inspiration</h2>
+            <p class="section-subtitle">
+                Explorez différents styles et mises en page adaptés à tous les secteurs professionnels. 
+                Tous les exemples présentés sont anonymisés et créés avec notre outil.
+            </p>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">Tous les CV</button>
+                <button class="filter-tab" data-filter="tech">Technologie</button>
+                <button class="filter-tab" data-filter="design">Design</button>
+                <button class="filter-tab" data-filter="business">Business</button>
+                <button class="filter-tab" data-filter="marketing">Marketing</button>
+                <button class="filter-tab" data-filter="education">Éducation</button>
+            </div>
+
+            <!-- CV Gallery -->
+            <div class="cv-gallery">
+                <!-- CV Example 1 - Tech -->
+                <div class="cv-card" data-category="tech">
+                    <div class="cv-preview">
+                        <div style="padding: 20px; font-size: 0.7rem; background: white; height: 100%; overflow: hidden;">
+                            <div style="text-align: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #667eea;">
+                                <h3 style="color: #333; margin-bottom: 5px;">Alex Martin</h3>
+                                <p style="color: #667eea; font-weight: bold;">Développeur Full Stack</p>
+                                <p style="color: #666; font-size: 0.6rem;">alex.martin@email.com • +33 6 12 34 56 78</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h4 style="color: #667eea; font-size: 0.6rem; margin-bottom: 5px;">PROFIL</h4>
+                                <p style="font-size: 0.5rem; line-height: 1.2;">Développeur passionné avec 5 ans d'expérience en JavaScript, React et Node.js...</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h4 style="color: #667eea; font-size: 0.6rem; margin-bottom: 5px;">EXPÉRIENCE</h4>
+                                <div style="font-size: 0.5rem; margin-bottom: 5px;">
+                                    <strong>Senior Developer - TechCorp</strong><br>
+                                    <span style="color: #666;">2020 - Présent</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="color: #667eea; font-size: 0.6rem; margin-bottom: 5px;">COMPÉTENCES</h4>
+                                <p style="font-size: 0.5rem;">JavaScript, React, Node.js, Python, AWS, Docker...</p>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal1')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV Développeur Full Stack</div>
+                        <div class="cv-description">Layout professionnel parfait pour les développeurs. Met en avant les compétences techniques et l'expérience.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Technologie</span>
+                            <span class="cv-tag">Professionnel</span>
+                            <span class="cv-tag">Bleu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Example 2 - Design -->
+                <div class="cv-card" data-category="design">
+                    <div class="cv-preview">
+                        <div style="padding: 15px; font-size: 0.65rem; background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%); color: white; height: 100%; overflow: hidden;">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <h3 style="margin-bottom: 5px; font-size: 0.8rem;">Sophie Dubois</h3>
+                                <p style="font-weight: bold; font-size: 0.7rem;">Designer UX/UI</p>
+                                <p style="font-size: 0.5rem; opacity: 0.9;">sophie.dubois@email.com</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                                <h4 style="font-size: 0.6rem; margin-bottom: 5px;">PROFIL CRÉATIF</h4>
+                                <p style="font-size: 0.5rem; line-height: 1.2;">Designer passionnée par l'expérience utilisateur et l'innovation...</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                                <h4 style="font-size: 0.6rem; margin-bottom: 5px;">EXPÉRIENCE</h4>
+                                <div style="font-size: 0.5rem;">
+                                    <strong>Senior UX Designer</strong><br>
+                                    <span style="opacity: 0.8;">DesignStudio - 2019-2024</span>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                                <h4 style="font-size: 0.6rem; margin-bottom: 5px;">OUTILS</h4>
+                                <p style="font-size: 0.5rem;">Figma, Adobe XD, Sketch, Prototyping...</p>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal2')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV Designer Créatif</div>
+                        <div class="cv-description">Design coloré et moderne, idéal pour les profils créatifs. Background dégradé attractif.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Design</span>
+                            <span class="cv-tag">Créatif</span>
+                            <span class="cv-tag">Coloré</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Example 3 - Business -->
+                <div class="cv-card" data-category="business">
+                    <div class="cv-preview">
+                        <div style="display: flex; height: 100%; font-size: 0.6rem;">
+                            <div style="width: 35%; background: #2c3e50; color: white; padding: 15px;">
+                                <div style="text-align: center; margin-bottom: 15px;">
+                                    <h3 style="font-size: 0.7rem; margin-bottom: 5px;">Pierre Laurent</h3>
+                                    <p style="font-size: 0.6rem; opacity: 0.9;">Manager Commercial</p>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <h4 style="font-size: 0.5rem; margin-bottom: 5px; color: #3498db;">CONTACT</h4>
+                                    <p style="font-size: 0.45rem; line-height: 1.3;">
+                                        pierre.laurent@email.com<br>
+                                        +33 6 12 34 56 78<br>
+                                        Paris, France
+                                    </p>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <h4 style="font-size: 0.5rem; margin-bottom: 5px; color: #3498db;">COMPÉTENCES</h4>
+                                    <p style="font-size: 0.45rem;">Management, Ventes, Négociation, CRM...</p>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.5rem; margin-bottom: 5px; color: #3498db;">LANGUES</h4>
+                                    <p style="font-size: 0.45rem;">Français - Natif<br>Anglais - Courant</p>
+                                </div>
+                            </div>
+                            <div style="width: 65%; padding: 15px; background: white;">
+                                <div style="margin-bottom: 10px;">
+                                    <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px;">PROFIL</h4>
+                                    <p style="font-size: 0.5rem; line-height: 1.2;">Manager commercial expérimenté avec 8 ans d'expérience...</p>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px;">EXPÉRIENCE</h4>
+                                    <div style="font-size: 0.5rem; margin-bottom: 5px;">
+                                        <strong>Directeur Commercial</strong><br>
+                                        <span style="color: #666;">Enterprise Corp - 2020-2024</span><br>
+                                        <span style="font-size: 0.45rem;">Gestion d'équipe de 15 commerciaux...</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px;">FORMATION</h4>
+                                    <div style="font-size: 0.5rem;">
+                                        <strong>MBA Management</strong><br>
+                                        <span style="color: #666;">Business School - 2015</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal3')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV Manager Business</div>
+                        <div class="cv-description">Layout moderne en deux colonnes, parfait pour les profils management et business.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Business</span>
+                            <span class="cv-tag">Moderne</span>
+                            <span class="cv-tag">Professionnel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Example 4 - Marketing -->
+                <div class="cv-card" data-category="marketing">
+                    <div class="cv-preview">
+                        <div style="padding: 20px; font-size: 0.7rem; background: white; height: 100%; overflow: hidden;">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <h3 style="color: #e74c3c; margin-bottom: 5px; font-size: 0.9rem;">Emma Rodriguez</h3>
+                                <p style="color: #666; font-weight: bold;">Marketing Digital Manager</p>
+                                <p style="color: #999; font-size: 0.6rem;">emma.rodriguez@email.com • LinkedIn: /in/emmarodriguez</p>
+                            </div>
+                            <div style="border-left: 4px solid #e74c3c; padding-left: 10px; margin-bottom: 10px;">
+                                <h4 style="color: #e74c3c; font-size: 0.6rem; margin-bottom: 5px;">PROFIL MARKETING</h4>
+                                <p style="font-size: 0.5rem; line-height: 1.2;">Experte en marketing digital avec 6 ans d'expérience en growth hacking...</p>
+                            </div>
+                            <div style="border-left: 4px solid #e74c3c; padding-left: 10px; margin-bottom: 10px;">
+                                <h4 style="color: #e74c3c; font-size: 0.6rem; margin-bottom: 5px;">RÉALISATIONS</h4>
+                                <div style="font-size: 0.5rem;">
+                                    <strong>Marketing Manager - StartupTech</strong><br>
+                                    <span style="color: #666;">2021 - Présent</span><br>
+                                    <span style="font-size: 0.45rem;">• +300% de croissance du trafic organique<br>• Campagnes Google Ads ROI de 450%</span>
+                                </div>
+                            </div>
+                            <div style="border-left: 4px solid #e74c3c; padding-left: 10px;">
+                                <h4 style="color: #e74c3c; font-size: 0.6rem; margin-bottom: 5px;">EXPERTISE</h4>
+                                <p style="font-size: 0.5rem;">SEO/SEA, Google Analytics, Facebook Ads, Growth Hacking, Content Marketing</p>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal4')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV Marketing Digital</div>
+                        <div class="cv-description">Design minimaliste avec accents colorés, met l'accent sur les résultats et performances.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Marketing</span>
+                            <span class="cv-tag">Minimaliste</span>
+                            <span class="cv-tag">Résultats</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Example 5 - Education -->
+                <div class="cv-card" data-category="education">
+                    <div class="cv-preview">
+                        <div style="padding: 20px; font-size: 0.7rem; background: #f8f9fa; height: 100%; overflow: hidden;">
+                            <div style="background: #2c3e50; color: white; padding: 15px; margin: -20px -20px 15px -20px; text-align: center;">
+                                <h3 style="margin-bottom: 5px;">Dr. Marie Lefevre</h3>
+                                <p style="opacity: 0.9; font-size: 0.8rem;">Professeure de Mathématiques</p>
+                                <p style="opacity: 0.8; font-size: 0.6rem;">marie.lefevre@universite.fr</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 2px;">FORMATION ACADÉMIQUE</h4>
+                                <div style="font-size: 0.5rem; line-height: 1.3;">
+                                    <strong>Doctorat en Mathématiques</strong><br>
+                                    <span style="color: #666;">Université de la Sorbonne - 2010</span><br>
+                                    <strong>Master Recherche Mathématiques</strong><br>
+                                    <span style="color: #666;">ENS Ulm - 2007</span>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 2px;">EXPÉRIENCE ENSEIGNEMENT</h4>
+                                <div style="font-size: 0.5rem;">
+                                    <strong>Professeure Titulaire</strong><br>
+                                    <span style="color: #666;">Université Paris-Saclay - 2015-2024</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="color: #2c3e50; font-size: 0.6rem; margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 2px;">PUBLICATIONS</h4>
+                                <p style="font-size: 0.45rem;">15 articles dans des revues internationales, 3 ouvrages de référence...</p>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal5')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV Professeur Académique</div>
+                        <div class="cv-description">Format classique et sérieux, parfait pour les profils académiques et éducatifs.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Éducation</span>
+                            <span class="cv-tag">Académique</span>
+                            <span class="cv-tag">Classique</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Example 6 - Tech Timeline -->
+                <div class="cv-card" data-category="tech">
+                    <div class="cv-preview">
+                        <div style="padding: 20px; font-size: 0.65rem; background: white; height: 100%; overflow: hidden;">
+                            <div style="text-align: center; margin-bottom: 15px; border-bottom: 3px solid #667eea; padding-bottom: 10px;">
+                                <h3 style="color: #333; margin-bottom: 5px;">Thomas Chen</h3>
+                                <p style="color: #667eea; font-weight: bold;">DevOps Engineer</p>
+                                <p style="color: #666; font-size: 0.6rem;">thomas.chen@email.com • GitHub: /thomaschen</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h4 style="color: #667eea; font-size: 0.6rem; margin-bottom: 5px;">PARCOURS PROFESSIONNEL</h4>
+                                <div style="border-left: 3px solid #667eea; padding-left: 10px;">
+                                    <div style="font-size: 0.5rem; margin-bottom: 8px; position: relative;">
+                                        <div style="position: absolute; left: -13px; top: 2px; width: 8px; height: 8px; background: #667eea; border-radius: 50%;"></div>
+                                        <strong>Senior DevOps Engineer</strong><br>
+                                        <span style="color: #666;">CloudTech - 2022-2024</span><br>
+                                        <span style="font-size: 0.45rem;">Kubernetes, AWS, CI/CD Pipeline</span>
+                                    </div>
+                                    <div style="font-size: 0.5rem; position: relative;">
+                                        <div style="position: absolute; left: -13px; top: 2px; width: 8px; height: 8px; background: #667eea; border-radius: 50%;"></div>
+                                        <strong>DevOps Engineer</strong><br>
+                                        <span style="color: #666;">StartupScale - 2020-2022</span><br>
+                                        <span style="font-size: 0.45rem;">Docker, Jenkins, Monitoring</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div>
+                                    <h4 style="color: #667eea; font-size: 0.5rem; margin-bottom: 5px;">TECHNOLOGIES</h4>
+                                    <p style="font-size: 0.45rem;">Docker, Kubernetes, AWS, Terraform, Ansible</p>
+                                </div>
+                                <div>
+                                    <h4 style="color: #667eea; font-size: 0.5rem; margin-bottom: 5px;">CERTIFICATIONS</h4>
+                                    <p style="font-size: 0.45rem;">AWS Solutions Architect, CKA Kubernetes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cv-overlay">
+                            <button class="preview-btn" onclick="openModal('modal6')">
+                                <i class="fas fa-eye"></i> Voir en détail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cv-info">
+                        <div class="cv-title">CV DevOps Timeline</div>
+                        <div class="cv-description">Format timeline innovant qui met en valeur la progression de carrière et l'évolution technique.</div>
+                        <div class="cv-tags">
+                            <span class="cv-tag">Technologie</span>
+                            <span class="cv-tag">Timeline</span>
+                            <span class="cv-tag">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Prêt à créer votre CV ?</h2>
+            <p class="cta-description">
+                Inspirez-vous de ces exemples et créez votre propre CV professionnel en quelques minutes avec notre générateur intuitif.
+            </p>
+            <a href="index.html" class="cta-button">
+                <i class="fas fa-plus-circle"></i> Créer mon CV maintenant
+            </a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="home.html">Accueil</a>
+                <a href="index.html">Générateur</a>
+                <a href="exemples.html">Exemples</a>
+                <a href="conseils.html">Conseils</a>
+                <a href="fonctionnalites.html">Fonctionnalités</a>
+                <a href="about.html">À propos</a>
+            </div>
+            <p style="color: #666; margin-top: 20px;">
+                © 2024 Générateur de CV Professionnel. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modals for CV previews -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal1')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV Développeur Full Stack - Alex Martin</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Ce CV utilise un design professionnel classique avec une structure claire et une hiérarchie visuelle efficace. 
+                Parfait pour les développeurs qui souhaitent mettre en avant leurs compétences techniques de manière organisée.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>En-tête centré avec informations de contact claires</li>
+                    <li>Sections bien délimitées avec icônes descriptives</li>
+                    <li>Couleur principale cohérente (bleu professionnel)</li>
+                    <li>Typographie lisible et hiérarchisée</li>
+                    <li>Structure logique : Profil → Expérience → Formation → Compétences</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> Développeurs, Ingénieurs, Profils techniques, Postes en entreprise
+            </p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal2')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV Designer Créatif - Sophie Dubois</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Ce CV créatif utilise un arrière-plan dégradé coloré et des cartes en transparence pour créer un effet visuel moderne et attractif.
+                Idéal pour les profils créatifs qui veulent sortir du lot.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #ff6b6b; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>Arrière-plan dégradé personnalisable</li>
+                    <li>Sections en cartes avec effet de transparence</li>
+                    <li>Typographie moderne et contrastée</li>
+                    <li>Layout créatif qui attire l'attention</li>
+                    <li>Couleurs vives et harmonieuses</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> Designers, Créatifs, Artistes, Agences créatives, Startups
+            </p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal3')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV Manager Business - Pierre Laurent</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Layout moderne en deux colonnes avec une sidebar colorée. Ce design équilibre professionnalisme et modernité,
+                parfait pour les profils management et business.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #2c3e50; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>Structure en deux colonnes optimisée</li>
+                    <li>Sidebar avec informations de contact et compétences</li>
+                    <li>Zone principale pour l'expérience détaillée</li>
+                    <li>Contraste efficace entre les zones</li>
+                    <li>Design moderne et professionnel</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> Managers, Commerciaux, Consultants, Profils business, Direction
+            </p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal4')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV Marketing Digital - Emma Rodriguez</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Design minimaliste avec des accents colorés strategiques. Ce CV met l'accent sur les résultats et performances,
+                essential pour les profils marketing.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #e74c3c; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>Accents colorés pour guider l'attention</li>
+                    <li>Mise en avant des résultats et métriques</li>
+                    <li>Design clean et moderne</li>
+                    <li>Bordures latérales pour structurer le contenu</li>
+                    <li>Focus sur les performances et réalisations</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> Marketing, Communication, Growth, Digital, E-commerce
+            </p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal5')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV Professeur Académique - Dr. Marie Lefevre</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Format classique et sérieux avec en-tête coloré et sections bien délimitées. Adapté aux standards académiques
+                tout en restant moderne et lisible.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #2c3e50; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>En-tête coloré avec informations essentielles</li>
+                    <li>Sections délimitées par des bordures subtiles</li>
+                    <li>Hiérarchie claire de l'information</li>
+                    <li>Design respectant les codes académiques</li>
+                    <li>Focus sur la formation et les publications</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> Enseignants, Chercheurs, Académiques, Docteurs, Professeurs
+            </p>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal6')">&times;</span>
+            <h3 style="margin-bottom: 20px; color: #333;">CV DevOps Timeline - Thomas Chen</h3>
+            <p style="margin-bottom: 15px; color: #666;">
+                Format timeline innovant qui met en valeur la progression de carrière. Perfect pour montrer l'évolution
+                des compétences et responsabilités dans le temps.
+            </p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Points forts de ce design :</h4>
+                <ul style="color: #666; line-height: 1.6;">
+                    <li>Timeline visuelle pour l'expérience</li>
+                    <li>Points de connection entre les postes</li>
+                    <li>Grid layout pour les compétences techniques</li>
+                    <li>Progression chronologique claire</li>
+                    <li>Design moderne et tech-friendly</li>
+                </ul>
+            </div>
+            <p style="color: #666;">
+                <strong>Recommandé pour :</strong> DevOps, Ingénieurs, Tech leads, Consultants techniques, IT
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                const cards = document.querySelectorAll('.cv-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

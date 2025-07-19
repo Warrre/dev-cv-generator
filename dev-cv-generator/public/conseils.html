@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conseils CV Développeur - Générateur de CV Professionnel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        .header {
+            text-align: center;
+            margin: 120px 0 60px 0;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .guide-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .guide-icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .guide-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .guide-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .guide-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .guide-list li {
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .guide-list li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .tip-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tip-text {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .mistakes-section {
+            background: #fff5f5;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            border: 2px solid #fed7d7;
+        }
+
+        .mistake-item {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e53e3e;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .mistake-title {
+            color: #e53e3e;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mistake-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .mistake-solution {
+            color: #38a169;
+            font-weight: 500;
+            padding: 10px;
+            background: #f0fff4;
+            border-radius: 5px;
+            border-left: 3px solid #38a169;
+        }
+
+        .checklist-section {
+            background: #f0fff4;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            border: 2px solid #c6f6d5;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .checklist-category {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .checklist-title {
+            color: #38a169;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #38a169;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox.checked {
+            background: #38a169;
+            color: white;
+        }
+
+        .tools-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tool-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tool-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .tool-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="home.html" class="logo">
+                <i class="fas fa-file-alt"></i> CV Generator
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="index.html">Générateur</a></li>
+                <li><a href="exemples.html">Exemples</a></li>
+                <li><a href="conseils.html" class="active">Conseils</a></li>
+                <li><a href="fonctionnalites.html">Fonctionnalités</a></li>
+                <li><a href="about.html">À propos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-lightbulb"></i> Guide du CV Parfait</h1>
+            <p>Conseils d'experts, bonnes pratiques et astuces pour créer un CV de développeur qui marque les esprits et décroche des entretiens.</p>
+        </header>
+
+        <!-- Main Guides Section -->
+        <section class="content-section">
+            <h2 class="section-title">Les Fondamentaux</h2>
+            <p class="section-subtitle">
+                Maîtrisez les bases pour construire un CV solide qui met en valeur votre profil de développeur.
+            </p>
+
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="guide-title">Profil Professionnel</h3>
+                    <p class="guide-description">
+                        Votre profil est la première chose que lit le recruteur. Il doit être accrocheur et synthétique.
+                    </p>
+                    <ul class="guide-list">
+                        <li>2-3 phrases maximum</li>
+                        <li>Mentionnez vos technologies principales</li>
+                        <li>Indiquez vos années d'expérience</li>
+                        <li>Ajoutez votre spécialité (Frontend, Backend, Full Stack)</li>
+                        <li>Évitez les clichés ("passionné", "dynamique")</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="guide-title">Compétences Techniques</h3>
+                    <p class="guide-description">
+                        Organisez vos compétences par catégories pour une lecture facilitée.
+                    </p>
+                    <ul class="guide-list">
+                        <li>Langages de programmation</li>
+                        <li>Frameworks et bibliothèques</li>
+                        <li>Bases de données</li>
+                        <li>Outils de développement</li>
+                        <li>Méthodologies (Agile, SCRUM)</li>
+                        <li>Cloud et DevOps</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="guide-title">Expérience Professionnelle</h3>
+                    <p class="guide-description">
+                        Détaillez vos réalisations avec des exemples concrets et des résultats mesurables.
+                    </p>
+                    <ul class="guide-list">
+                        <li>Utilisez des verbes d'action</li>
+                        <li>Quantifiez vos résultats</li>
+                        <li>Mentionnez les technologies utilisées</li>
+                        <li>Décrivez l'impact de vos contributions</li>
+                        <li>Adaptez selon le poste visé</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="guide-title">Projets Portfolio</h3>
+                    <p class="guide-description">
+                        Mettez en avant vos projets les plus significatifs avec des liens vers le code source.
+                    </p>
+                    <ul class="guide-list">
+                        <li>Choisissez 3-4 projets variés</li>
+                        <li>Décrivez brièvement la problématique</li>
+                        <li>Listez les technologies utilisées</li>
+                        <li>Ajoutez les liens GitHub/démo</li>
+                        <li>Mentionnez votre rôle dans l'équipe</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section class="tips-section">
+            <h2 class="section-title" style="color: white;">Conseils d'Experts</h2>
+            <p style="text-align: center; font-size: 1.1rem; opacity: 0.9; margin-bottom: 0;">
+                Des astuces pratiques pour optimiser chaque section de votre CV développeur.
+            </p>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="tip-title">Lisibilité Avant Tout</h3>
+                    <p class="tip-text">
+                        Un CV difficile à lire sera écarté en quelques secondes. Privilégiez la clarté avec des sections bien délimitées, une typographie lisible et suffisamment d'espaces blancs.
+                    </p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    <h3 class="tip-title">Personnalisation</h3>
+                    <p class="tip-text">
+                        Adaptez votre CV à chaque offre. Mettez en avant les technologies et compétences mentionnées dans l'annonce. Un CV générique a moins d'impact qu'un CV ciblé.
+                    </p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="tip-title">Résultats Mesurables</h3>
+                    <p class="tip-text">
+                        Quantifiez vos réalisations : "Optimisé les performances de 40%", "Réduit les bugs de 60%", "Géré une équipe de 5 développeurs". Les chiffres marquent les esprits.
+                    </p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="tip-title">Liens Professionnels</h3>
+                    <p class="tip-text">
+                        Ajoutez vos liens GitHub, LinkedIn, portfolio. Assurez-vous que vos profils sont à jour et cohérents avec votre CV. Un portfolio live vaut mieux qu'une description.
+                    </p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <h3 class="tip-title">Relecture Minutieuse</h3>
+                    <p class="tip-text">
+                        Zéro faute d'orthographe ou de grammaire. Faites relire par un tiers. Les détails comptent et reflètent votre rigueur professionnelle.
+                    </p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="tip-title">Actualisation Régulière</h3>
+                    <p class="tip-text">
+                        Mettez à jour votre CV tous les 3-6 mois. Ajoutez vos nouvelles compétences, projets et certifications. Un CV à jour montre votre évolution continue.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mistakes Section -->
+        <section class="mistakes-section">
+            <h2 class="section-title" style="color: #e53e3e;">Erreurs à Éviter</h2>
+            <p class="section-subtitle" style="color: #666;">
+                Les pièges les plus courants qui peuvent compromettre vos chances d'obtenir un entretien.
+            </p>
+
+            <div class="mistake-item">
+                <h3 class="mistake-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    CV Trop Long ou Trop Court
+                </h3>
+                <p class="mistake-description">
+                    Un CV de 5 pages noie l'information importante, tandis qu'un CV d'une demi-page manque de substance.
+                </p>
+                <div class="mistake-solution">
+                    <strong>Solution :</strong> Visez 1-2 pages maximum. Une page pour les juniors (&lt;3 ans), deux pages pour les seniors.
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <h3 class="mistake-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Liste de Technologies Sans Context
+                </h3>
+                <p class="mistake-description">
+                    Énumérer toutes les technologies que vous avez touchées sans préciser votre niveau de maîtrise.
+                </p>
+                <div class="mistake-solution">
+                    <strong>Solution :</strong> Organisez par niveau (Expert, Intermédiaire, Notions) ou par années d'expérience.
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <h3 class="mistake-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Descriptions Génériques
+                </h3>
+                <p class="mistake-description">
+                    "Développement d'applications web" ne dit rien de spécifique sur vos compétences réelles.
+                </p>
+                <div class="mistake-solution">
+                    <strong>Solution :</strong> "Développement d'une SPA React avec API REST Node.js, utilisée par 10k+ utilisateurs quotidiens."
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <h3 class="mistake-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Oublier les Soft Skills
+                </h3>
+                <p class="mistake-description">
+                    Se concentrer uniquement sur les compétences techniques en négligeant les compétences humaines.
+                </p>
+                <div class="mistake-solution">
+                    <strong>Solution :</strong> Intégrez subtilement vos soft skills dans les descriptions d'expérience (leadership, communication, résolution de problèmes).
+                </div>
+            </div>
+
+            <div class="mistake-item">
+                <h3 class="mistake-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Photo Non Professionnelle
+                </h3>
+                <p class="mistake-description">
+                    Ajouter une photo de vacances ou de mauvaise qualité, ou utiliser un avatar de jeu vidéo.
+                </p>
+                <div class="mistake-solution">
+                    <strong>Solution :</strong> Photo professionnelle ou pas de photo du tout. En France, la photo n'est pas obligatoire.
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist Section -->
+        <section class="checklist-section">
+            <h2 class="section-title" style="color: #38a169;">Checklist CV Parfait</h2>
+            <p class="section-subtitle" style="color: #666;">
+                Vérifiez tous ces points avant d'envoyer votre CV. Une checklist complète pour ne rien oublier.
+            </p>
+
+            <div class="checklist-grid">
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-info-circle"></i>
+                        Informations Personnelles
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Nom et prénom clairement visibles</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Email professionnel (prenom.nom@email.com)</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Numéro de téléphone à jour</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Ville de résidence</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Liens LinkedIn et GitHub</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Portfolio en ligne (si applicable)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-code"></i>
+                        Compétences Techniques
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Technologies organisées par catégories</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Niveau de maîtrise indiqué</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Technologies récentes et pertinentes</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Éviter les technologies obsolètes</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Certifications mentionnées</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-briefcase"></i>
+                        Expérience Professionnelle
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Ordre chronologique inverse</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Dates précises (mois/année)</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Titres de postes clairs</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Réalisations quantifiées</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Technologies utilisées mentionnées</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Pas de trous inexpliqués</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Projets et Portfolio
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>3-4 projets significatifs</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Description claire du projet</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Stack technique détaillée</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Liens vers le code source</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Démonstrations live si possible</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Formation et Apprentissage
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Diplômes pertinents mentionnés</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Formations en ligne complétées</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Certifications techniques</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Autoformation continue mise en avant</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-category">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-check-circle"></i>
+                        Validation Finale
+                    </h3>
+                    <ul class="checklist">
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Orthographe et grammaire vérifiées</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Format PDF professionnel</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Taille du fichier < 2 MB</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Nom de fichier explicite</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Test d'impression/affichage</span>
+                        </li>
+                        <li>
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <span>Relecture par un tiers</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="tools-section">
+            <h2 class="section-title">Outils Recommandés</h2>
+            <p class="section-subtitle">
+                Des ressources utiles pour améliorer votre CV et votre recherche d'emploi.
+            </p>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <div class="tool-name">Grammarly</div>
+                    <div class="tool-description">Correction orthographique et grammaticale en temps réel</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="tool-name">Canva</div>
+                    <div class="tool-description">Templates de CV graphiques et professionnels</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="tool-name">GitHub</div>
+                    <div class="tool-description">Showcase de vos projets et contributions open source</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="tool-name">LinkedIn</div>
+                    <div class="tool-description">Réseau professionnel et recherche d'opportunités</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="tool-name">Google Analytics</div>
+                    <div class="tool-description">Analyser le trafic de votre portfolio en ligne</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="tool-name">PDF24</div>
+                    <div class="tool-description">Compression et optimisation de fichiers PDF</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="tool-name">GitLab</div>
+                    <div class="tool-description">Alternative à GitHub pour vos projets</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="tool-name">Netlify</div>
+                    <div class="tool-description">Hébergement gratuit pour vos portfolios</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Prêt à Créer Votre CV ?</h2>
+            <p class="cta-description">
+                Maintenant que vous connaissez tous les secrets d'un CV réussi, utilisez notre générateur pour créer le vôtre en quelques minutes.
+            </p>
+            <a href="index.html" class="cta-button">
+                <i class="fas fa-rocket"></i> Créer mon CV professionnel
+            </a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="home.html">Accueil</a>
+                <a href="index.html">Générateur</a>
+                <a href="exemples.html">Exemples</a>
+                <a href="conseils.html">Conseils</a>
+                <a href="fonctionnalites.html">Fonctionnalités</a>
+                <a href="about.html">À propos</a>
+            </div>
+            <p style="color: #666; margin-top: 20px;">
+                © 2024 Générateur de CV Professionnel. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            if (element.classList.contains('checked')) {
+                element.innerHTML = '<i class="fas fa-check"></i>';
+            } else {
+                element.innerHTML = '';
+            }
+            
+            // Save state in localStorage
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const states = Array.from(checkboxes).map(cb => cb.classList.contains('checked'));
+            localStorage.setItem('cvChecklistStates', JSON.stringify(states));
+        }
+
+        // Load saved states on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedStates = localStorage.getItem('cvChecklistStates');
+            if (savedStates) {
+                const states = JSON.parse(savedStates);
+                const checkboxes = document.querySelectorAll('.checkbox');
+                checkboxes.forEach((checkbox, index) => {
+                    if (states[index]) {
+                        checkbox.classList.add('checked');
+                        checkbox.innerHTML = '<i class="fas fa-check"></i>';
+                    }
+                });
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
