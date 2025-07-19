@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - {{firstName}} {{name}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        
+        .cv-container {
+            max-width: 100%;
+        }
+        
+        /* Header avec design moderne */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #2563eb;
+            position: relative;
+        }
+        
+        .header-left {
+            flex: 1;
+        }
+        
+        .header-right {
+            flex: 0 0 120px;
+            text-align: center;
+        }
+        
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #2563eb;
+        }
+        
+        .header h1 {
+            color: #2563eb;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+        }
+        
+        .contact-item i {
+            color: #2563eb;
+            width: 16px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 25px;
+            break-inside: avoid;
+        }
+        
+        .section h2 {
+            color: #2563eb;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e1f5fe;
+            position: relative;
+        }
+        
+        .section h2:before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #2563eb;
+        }
+        
+        /* Profil */
+        .profile-text {
+            font-size: 1em;
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+        }
+        
+        /* Compétences */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Expériences */
+        .experience-item {
+            margin-bottom: 20px;
+            padding: 18px;
+            background: #f8fafb;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .experience-title {
+            color: #2563eb;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .company {
+            font-weight: 600;
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .experience-dates {
+            font-size: 0.85em;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .experience-description {
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        /* Projets */
+        .project-item {
+            margin-bottom: 18px;
+            padding: 15px;
+            background: #fafbfc;
+            border-radius: 6px;
+            border-left: 3px solid #10b981;
+        }
+        
+        .project-title {
+            color: #10b981;
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .project-description {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .project-tech {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            background: #e8f5e8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        /* Formation et Langues */
+        .education-item, .language-item {
+            padding: 12px;
+            background: #fff7ed;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #f59e0b;
+        }
+        
+        /* Responsive pour l'impression */
+        @media print {
+            body {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                margin-bottom: 20px;
+            }
+            
+            .experience-item, .project-item {
+                break-inside: avoid;
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* Grille pour layout équilibré */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media print {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>{{firstName}} {{name}}</h1>
+                <div class="subtitle">Développeur Full-Stack</div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i>✉</i>
+                        <span>{{email}}</span>
+                    </div>
+                    <div class="contact-item">
+                        <i>💼</i>
+                        <span>{{linkedin}}</span>
+                    </div>
+                    <div class="contact-item">
+                        <i>🔗</i>
+                        <span>{{github}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                {{#if photo}}
+                <img src="{{photo}}" alt="Photo de profil" class="profile-photo">
+                {{/if}}
+            </div>
+        </div>
+        
+        <!-- Profil -->
+        {{#if profile}}
+        <div class="section">
+            <h2>🎯 Profil</h2>
+            <p class="profile-text">{{profile}}</p>
+        </div>
+        {{/if}}
+        
+        <!-- Compétences -->
+        <div class="section">
+            <h2>🚀 Compétences Techniques</h2>
+            <div class="skills-container">
+                {{skills}}
+            </div>
+        </div>
+        
+        <!-- Expériences -->
+        <div class="section">
+            <h2>💼 Expériences Professionnelles</h2>
+            {{experiences}}
+        </div>
+        
+        <!-- Projets -->
+        {{#if projects}}
+        <div class="section">
+            <h2>🛠️ Projets</h2>
+            {{projects}}
+        </div>
+        {{/if}}
+        
+        <div class="two-column">
+            <!-- Formation -->
+            {{#if diploma}}
+            <div class="section">
+                <h2>🎓 Formation</h2>
+                <div class="education-item">
+                    {{diploma}}
+                </div>
+            </div>
+            {{/if}}
+            
+            <!-- Langues -->
+            {{#if languages}}
+            <div class="section">
+                <h2>🌍 Langues</h2>
+                <div class="language-item">
+                    {{languages}}
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html>
