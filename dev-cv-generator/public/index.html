@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de CV Professionnel</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -567,6 +568,22 @@
             transform: translateY(-2px);
         }
 
+        .preview-btn:hover {
+            background: #059669 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Creative Background Options */
+        .creative-bg-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .creative-bg-option.active {
+            transform: scale(1.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
         /* CV Preview Styles */
         .cv-preview {
             background: white;
@@ -628,7 +645,7 @@
         }
 
         .layout-creative {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
             color: white;
             padding: 30px;
             position: relative;
@@ -1022,6 +1039,37 @@
                 </div>
             </div>
 
+            <!-- Creative Background Selector (visible only for creative layout) -->
+            <div class="creative-bg-selector" id="creativeBgSelector" style="display: none; margin-bottom: 25px;">
+                <label>Couleur d'arrière-plan créatif :</label>
+                <div class="creative-bg-options" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; margin-top: 15px;">
+                    <div class="creative-bg-option active" data-bg="gradient1" title="Gradient Bleu-Violet" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid var(--text-dark); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient2" title="Gradient Rose-Orange" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient3" title="Gradient Vert-Cyan" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient4" title="Gradient Violet-Rose" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: #333; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient5" title="Gradient Sunset" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: #333; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient6" title="Gradient Océan" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient7" title="Gradient Forêt" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px; display: none;"></i>
+                    </div>
+                    <div class="creative-bg-option" data-bg="gradient8" title="Gradient Nuit" style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; background: linear-gradient(135deg, #2d3436 0%, #636e72 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check" style="color: white; font-size: 14px; display: none;"></i>
+                    </div>
+                </div>
+            </div>
+
             <!-- Personal Info -->
             <div class="form-group">
                 <label for="fullName">Nom complet *</label>
@@ -1175,9 +1223,14 @@
         <div class="preview-section">
             <div class="preview-header">
                 <h2><i class="fas fa-eye"></i> Aperçu</h2>
-                <button class="download-btn" onclick="downloadPDF()">
-                    <i class="fas fa-download"></i> Télécharger PDF
-                </button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="preview-btn" onclick="previewPDF()" style="background: var(--success-color); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+                        <i class="fas fa-search"></i> Aperçu PDF
+                    </button>
+                    <button class="download-btn" onclick="downloadPDF()">
+                        <i class="fas fa-download"></i> Télécharger PDF
+                    </button>
+                </div>
             </div>
             
             <div class="cv-preview" id="cvPreview">
@@ -1233,6 +1286,19 @@
         let currentLayout = 'professional';
         let currentColor = 'blue';
         let currentPhoto = null;
+        let currentCreativeBg = 'gradient1';
+
+        // Creative background gradients
+        const creativeBackgrounds = {
+            gradient1: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            gradient2: 'linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%)',
+            gradient3: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)',
+            gradient4: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+            gradient5: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+            gradient6: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
+            gradient7: 'linear-gradient(135deg, #00b894 0%, #00cec9 100%)',
+            gradient8: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)'
+        };
 
         // Color themes
         const colorThemes = {
@@ -1265,6 +1331,13 @@
             if (savedColor !== 'blue') {
                 document.querySelector(`.color-option[data-color="${savedColor}"]`).click();
             }
+            
+            // Load creative background preference
+            const savedCreativeBg = localStorage.getItem('selectedCreativeBg') || 'gradient1';
+            if (savedCreativeBg !== 'gradient1') {
+                currentCreativeBg = savedCreativeBg;
+                document.querySelector(`.creative-bg-option[data-bg="${savedCreativeBg}"]`)?.click();
+            }
         });
 
         // Setup event listeners
@@ -1275,6 +1348,15 @@
                     document.querySelectorAll('.layout-option').forEach(o => o.classList.remove('active'));
                     this.classList.add('active');
                     currentLayout = this.dataset.layout;
+                    
+                    // Show/hide creative background selector
+                    const creativeBgSelector = document.getElementById('creativeBgSelector');
+                    if (currentLayout === 'creative') {
+                        creativeBgSelector.style.display = 'block';
+                    } else {
+                        creativeBgSelector.style.display = 'none';
+                    }
+                    
                     updatePreview();
                 });
             });
@@ -1290,6 +1372,23 @@
                     this.querySelector('i').style.display = 'block';
                     currentColor = this.dataset.color;
                     applyColorTheme(currentColor);
+                    updatePreview();
+                });
+            });
+
+            // Creative background selection
+            document.querySelectorAll('.creative-bg-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.creative-bg-option').forEach(o => {
+                        o.classList.remove('active');
+                        o.querySelector('i').style.display = 'none';
+                        o.style.border = '3px solid transparent';
+                    });
+                    this.classList.add('active');
+                    this.querySelector('i').style.display = 'block';
+                    this.style.border = '3px solid var(--text-dark)';
+                    currentCreativeBg = this.dataset.bg;
+                    localStorage.setItem('selectedCreativeBg', currentCreativeBg);
                     updatePreview();
                 });
             });
@@ -1535,8 +1634,10 @@
 
         // Generate Creative Layout
         function generateCreativeLayout(data) {
+            const selectedBackground = creativeBackgrounds[currentCreativeBg];
+            
             return `
-                <div class="layout-creative">
+                <div class="layout-creative" style="background: ${selectedBackground};">
                     <div class="cv-content">
                         <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; border-radius: 15px;">
                             ${data.photo ? `<img src="${data.photo}" alt="Photo" class="cv-photo" style="margin-bottom: 15px;">` : ''}
@@ -1861,24 +1962,152 @@
             }
         }
 
+        // Preview PDF functionality
+        function previewPDF() {
+            const element = document.getElementById('cvPreview');
+            const data = collectFormData();
+            
+            // Temporarily hide background animations for PDF preview
+            const bgAnimation = document.querySelector('.bg-animation');
+            const originalDisplay = bgAnimation.style.display;
+            bgAnimation.style.display = 'none';
+            
+            const opt = {
+                margin: 0.5,
+                filename: `Apercu_CV_${data.fullName.replace(/\s+/g, '_')}_${currentLayout}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    allowTaint: true 
+                },
+                jsPDF: { 
+                    unit: 'in', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            // Generate PDF and open in new tab
+            html2pdf().set(opt).from(element).outputPdf('datauristring').then((pdfAsString) => {
+                // Open PDF in new tab
+                const newTab = window.open();
+                newTab.document.write(`
+                    <html>
+                        <head>
+                            <title>Aperçu CV - ${data.fullName}</title>
+                            <style>
+                                body {
+                                    margin: 0;
+                                    padding: 20px;
+                                    font-family: Arial, sans-serif;
+                                    background: #f5f5f5;
+                                }
+                                .controls {
+                                    text-align: center;
+                                    margin-bottom: 20px;
+                                    padding: 15px;
+                                    background: white;
+                                    border-radius: 8px;
+                                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                }
+                                .controls button {
+                                    background: #2563eb;
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    margin: 0 10px;
+                                    font-weight: 600;
+                                }
+                                .controls button:hover {
+                                    background: #1d4ed8;
+                                }
+                                .controls .download-btn {
+                                    background: #10b981;
+                                }
+                                .controls .download-btn:hover {
+                                    background: #059669;
+                                }
+                                iframe {
+                                    width: 100%;
+                                    height: calc(100vh - 120px);
+                                    border: none;
+                                    border-radius: 8px;
+                                    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="controls">
+                                <h2 style="margin: 0 0 15px 0; color: #333;">Aperçu du CV - ${data.fullName}</h2>
+                                <button onclick="window.print()">🖨️ Imprimer</button>
+                                <button class="download-btn" onclick="downloadFromPreview()">📥 Télécharger PDF</button>
+                                <button onclick="window.close()" style="background: #ef4444;">❌ Fermer</button>
+                            </div>
+                            <iframe src="${pdfAsString}"></iframe>
+                            <script>
+                                function downloadFromPreview() {
+                                    const link = document.createElement('a');
+                                    link.href = '${pdfAsString}';
+                                    link.download = 'CV_${data.fullName.replace(/\s+/g, '_')}_${currentLayout}.pdf';
+                                    link.click();
+                                }
+                            </script>
+                        </body>
+                    </html>
+                `);
+                
+                // Restore background animations
+                bgAnimation.style.display = originalDisplay;
+            }).catch((error) => {
+                console.error('Erreur lors de la génération de l\'aperçu PDF:', error);
+                alert('Erreur lors de la génération de l\'aperçu PDF. Veuillez réessayer.');
+                // Restore background animations in case of error
+                bgAnimation.style.display = originalDisplay;
+            });
+        }
+
         // Download PDF functionality
         function downloadPDF() {
-            // This would typically use a library like jsPDF or html2pdf
-            // For now, we'll show an alert
-            alert('Fonctionnalité de téléchargement PDF à implémenter avec une bibliothèque comme html2pdf ou jsPDF');
-            
-            // Example implementation with html2pdf (would need to include the library):
-            /*
             const element = document.getElementById('cvPreview');
+            const data = collectFormData();
+            const filename = `CV_${data.fullName.replace(/\s+/g, '_')}_${currentLayout}.pdf`;
+            
             const opt = {
-                margin: 1,
-                filename: 'cv.pdf',
+                margin: 0.5,
+                filename: filename,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    allowTaint: true 
+                },
+                jsPDF: { 
+                    unit: 'in', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
             };
-            html2pdf().set(opt).from(element).save();
-            */
+            
+            // Temporarily hide background animations for PDF
+            const bgAnimation = document.querySelector('.bg-animation');
+            const originalDisplay = bgAnimation.style.display;
+            bgAnimation.style.display = 'none';
+            
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore background animations
+                bgAnimation.style.display = originalDisplay;
+            }).catch((error) => {
+                console.error('Erreur lors de la génération PDF:', error);
+                alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+                // Restore background animations in case of error
+                bgAnimation.style.display = originalDisplay;
+            });
         }
 
         // Photo upload functionality
